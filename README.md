@@ -1,3 +1,3 @@
 # Blog-Website
 
-![deisgn](Blog-Website.png)
+![deisgn](https://github.com/GeorgeMuigai/Blog-Website/blob/main/assets/images/Blog-Website.png)
