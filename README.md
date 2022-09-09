@@ -1,3 +1,3 @@
 # Blog-Website
 
-![alt text](https://github.com/[GeorgeMuigai]/[Blog-Website]/blob/[main]/Blog-Website.jpg?raw=true)
+![alt text](https://github.com/[GeorgeMuigai]/[Blog-Website]/blob/[main]/blog5.jpg?raw=true)
