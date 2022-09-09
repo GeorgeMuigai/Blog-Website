@@ -150,8 +150,9 @@ function goToPost(id) {
             if (request.status === 200) {
                 var post = JSON.parse(request.responseText);
                 var title = post.post_title.replaceAll(" ", "-");
+                var cat = post.post_cat;
 
-                window.location.href = `post.php?id=${id}&post=${title}`;
+                window.location.href = `post.php?id=${id}&post=${title}&c=${cat}`;
             }
         }
     }

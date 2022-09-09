@@ -1,18 +1,26 @@
 <?php
-    require_once 'templates/header.php';
-    if(isset($_GET['id'])) {
-        extract($_GET);
-    }
+require_once 'templates/header.php';
+if (isset($_GET['id'])) {
+    extract($_GET);
+}
+if (isset($_GET['c'])) {
+    $cat = $_GET['c'];
+} else {
+    $cat = "";
+}
 ?>
 
 <div class="container" id="container">
     <input type="hidden" name="" id="id" value="<?php
-       echo $id; 
-    ?>">
+                                                echo $id;
+                                                ?>">
+    <input type="hidden" name="" id="p-one-cat" value=<?php
+                                                        echo $cat;
+                                                        ?>>
     <div class="all-posts" id="all">
         <div class="sections">
             <div class="post-container">
-               
+                
             </div>
             <div class="nav-sections ">
                 <div class="recent">
@@ -20,7 +28,7 @@
                         <h2>Related Posts</h2>
                     </div>
                     <div class="small-post">
-                        
+
                     </div>
                 </div>
                 <div class="categories">
@@ -44,8 +52,8 @@
     </div>
 </div>
 <script src="assets/JS/post.js?v=<?php
-    echo time();
-?>"></script>
+                                    echo time();
+                                    ?>"></script>
 <?php
 // require_once 'templates/footer.php';
 ?>
