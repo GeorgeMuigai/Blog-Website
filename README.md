@@ -1,8 +1,3 @@
 # Blog-Website
 
-<img
-src=“assets/images/Blog-Website.png”
-raw=true
-alt=“Subject Pronouns”
-style=“margin-right: 10px;”
-/>
+![alt text](https://github.com/[GeorgeMuigai]/[Blog-Website]/blob/[main]/Blog-Website.jpg?raw=true)
