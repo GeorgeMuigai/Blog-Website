@@ -27,3 +27,6 @@ require 'templates/header.php';
         </div>
     </div>
 </div>
+<script src="assets/JS/dashboard.js?v=<?php
+    echo time();
+?>"></script>

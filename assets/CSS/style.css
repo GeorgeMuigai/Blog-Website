@@ -666,3 +666,6 @@ textarea {
 .heading-next {
     text-align: right;
 }
+.post-not-found {
+    color: #fff;
+}

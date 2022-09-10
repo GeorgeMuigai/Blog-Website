@@ -1,0 +1,14 @@
+================
+How to use 
+================
+
+Copy this project to your xampp htdocs folder.
+
+Start your xampp server
+Go to to php my admin and Create a database called 'b_website'
+Click on the import tab and upload the sql file in the database folder
+
+=============================================================
+Now go to https://localhost/Blog-Website sign up and ENJOY!!!
+=============================================================
+

@@ -1,6 +1,8 @@
 <?php
     require_once 'db.inc.php';
+    session_start();
 
+    // get all the posts in the database
     if(isset($_POST['get_all_posts'])) {
 
         $get_posts = "SELECT * FROM posts ORDER BY id DESC";
@@ -48,6 +50,7 @@
         }
     }
 
+    // get recently added posts from the database
     if (isset($_POST['get_recent'])) {
         $recent_five = "SELECT * FROM posts ORDER BY id DESC LIMIT 5";
 
@@ -93,14 +96,32 @@
         $stmt->close();
     }
 
+    // get the clicked post from the database
     if (isset($_POST['po_id'])) {
         extract($_POST);
 
         $get_post = "SELECT * FROM posts WHERE id = ?";
+        
+        $prev = get_prev_id($po_id, $con);
+        if ($prev != null) {
+            $prev_post_id = $prev['id'];
+            $prev_post_img = $prev['post_img'];
+            $prev_post_title = $prev['post_title'];
+            $prev_post_date = $prev['post_date'];
+        }
+
+        $next = get_next_id($po_id, $con);
+        if ($next != null) {
+            $next_post_id = $next['id'];
+            $next_post_img = $next['post_img'];
+            $next_post_title = $next['post_title'];
+            $next_post_date = $next['post_date'];
+        }
 
         if ($stmt = $con->prepare($get_post)) {
             $stmt->bind_param("i", $po_id);
             $stmt->execute();
+
 
             $post_info = $stmt->get_result();
 
@@ -115,22 +136,6 @@
                 $user_info = get_user($user_id, $con);
                 $user_name = $user_info['user_name'];
                 $user_avatar = $user_info['user_avatar'];
-
-                $prev = get_prev_id($po_id, $con);
-                if ($prev != null) {
-                    $prev_post_id = $prev['id'];
-                    $prev_post_img = $prev['post_img'];
-                    $prev_post_title = $prev['post_title'];
-                    $prev_post_date = $prev['post_date'];
-                }
-
-                $next = get_next_id($po_id, $con);
-                if ($next != null) {
-                    $next_post_id = $next['id'];
-                    $next_post_img = $next['post_img'];
-                    $next_post_title = $next['post_title'];
-                    $next_post_date = $next['post_date'];
-                }
 
                 $post =  '<div class="post-items one-post">
                 <div class="post-img-container post-one-img">
@@ -152,7 +157,7 @@
                     </div>
                 </div>
            </div>
-           <div class="user-data">
+           <div class="user-data" onclick="goToUser('.$user_id.')">
                     <div class="profile-container">
                         <img src="assets/profiles/'.$user_avatar.'">
                     </div>
@@ -205,12 +210,16 @@
                 }
 
                 echo $post;
+            } else {
+                echo '<h1 class="post-not-found">Post Not Found '.$next_post_date.'</h1>';
             }
         }
 
         $stmt->close();
     }
 
+    // get related post of the clicked post 
+    // note: post are grouped as related if they share the same category
     if (isset($_POST['get_related'])) {
         extract($_POST);
 
@@ -242,6 +251,41 @@
                     </div>
                     </div>';                    
                 }
+            }
+        }
+    }
+
+    // get the posts posted by the logged in user 
+    if (isset($_POST['user-posts'])) {
+        $current_user_id = $_SESSION['id'];
+
+        $userPosts = "SELECT * FROM posts WHERE user_id = ?";
+
+        if ($stmt = $con->prepare($userPosts)) {
+            $stmt->bind_param("i", $current_user_id);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            $table = "";
+            $posts = 0;
+            while ($row = $result->fetch_assoc()) {
+                $post_id = $row['id'];
+                $post_title = $row['post_title'];
+
+                $posts++;
+
+                $table .= '<tr>
+                <td class="post_title" onclick="goToPost('.$post_id.')">'.$post_title.'</td>
+                <td> <button class="btn btn_edit" onclick="edit_post('.$post_id.')">Edit</button></td>
+                <td> <button class="btn btn_del" onclick="delete_post('.$post_id.')">Delete</button></td>
+            </tr>';
+            }
+
+            if ($posts == 0) {
+                echo "";
+            } else {
+                echo $table;
             }
         }
     }

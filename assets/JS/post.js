@@ -69,6 +69,10 @@ function goToPost(id) {
     request.send(fd);
 }
 
+function goToUser(id) {
+    console.log(id);
+}
+
 window.addEventListener('load', () => {
     // console.log("loaded");
     getPost();

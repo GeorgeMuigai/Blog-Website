@@ -20,7 +20,11 @@ if (isset($_GET['c'])) {
     <div class="all-posts" id="all">
         <div class="sections">
             <div class="post-container">
-                
+                <!-- <div class="reply">
+                    <h3>Leave a Reply</h3>
+                    <textarea name="" id="comment" cols="30" rows="10"></textarea>
+                    <input type="text" placeholder="name">
+                </div> -->
             </div>
             <div class="nav-sections ">
                 <div class="recent">
